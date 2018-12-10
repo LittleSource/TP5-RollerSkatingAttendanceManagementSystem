@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{:config('system_title')}</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    {css href="/static/css/sm.min.css" /}
+    {css href="/static/css/sm-extend.min.css" /}
+    {css href="/static/css/public.css" /}
+    {css href="/static/css/iconfont.css" /}
+</head>
+<body>
+<div class="page-group">
+    <div class="page">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+            <a class="icon icon-me pull-left open-panel"></a>
+            <h1 class="title">{:\\think\\facade\\Session::get('name_','login');}主页</h1>
+        </header>
+        <!-- 工具栏 -->
+
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+            <div class="card facebook-card">
+                <div class="card-header">
+                    <div class="facebook-avatar">
+                        <img src="/static/images/student.jpg" width="38" height="38">
+                    </div>
+                    <div class="facebook-name">{$vo.name_}</div>
+                    <div class="facebook-date">到期时间:{$vo.end_time}</div>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <div class="list-block cards-list">
+                            <ul>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">ID</div>
+                                        <div class="item-after">{$vo.id}</div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">性别</div>
+                                        <div class="item-after">{$vo.sex}</div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">场地</div>
+                                        <div class="item-after">{$vo.scope}</div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">出生年月</div>
+                                        <div class="item-after">{$vo.birth_date}</div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">电话</div>
+                                        <div class="item-after">{$vo.phone}</div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">报名日期</div>
+                                        <div class="item-after">{$vo.start_time}</div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">最大签到次数</div>
+                                        <div class="item-after">{$vo.max_count}</div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">剩余次数</div>
+                                        <div class="item-after">{$vo.residual_count}</div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">报名类型</div>
+                                        <div class="item-after">{$vo.type}</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Left Panel -->
+<div class="panel panel-left panel-reveal theme-dark" id="panel-left-demo">
+    <div class="content-block">
+        <p align="center">
+            <img src="/static/images/student.jpg" style="border-radius:2rem;width:4rem;height:4rem
+">
+        </p>
+        <p align="center">{:\\think\\facade\\Session::get('name_','login');}，欢迎登陆</p>
+    </div>
+    <div class="list-block">
+        <ul>
+            <!-- Text inputs -->
+            <li>
+                <div class="item-content">
+                    <div class="item-media"><i class="icon icon-form-gender"></i></div>
+                    <div class="item-inner">
+                        <a class="close-panel">关闭侧栏</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="item-content">
+                    <div class="item-media"><i class="icon icon-form-gender"></i></div>
+                    <div class="item-inner">
+                        <a class="external" href="{:url('/index/login/loginOut')}">退出登录</a>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<!-- Js -->
+{js href="/static/js/zepto.min.js" /}
+{js href="/static/js/sm.min.js" /}
+{js href="/static/js/sm-extend.min.js" /}
+</body>
+</html>

@@ -1,0 +1,74 @@
+{include file="public/header" /}
+<body>
+<div class="page-group">
+    <div class="page">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+            <a class="icon icon-me pull-left open-panel"></a>
+            <h1 class="title">教练管理</h1>
+            <a class="iconfont icon-zengjia pull-right" href="{:url('admin/coach_govern/add')}"></a>
+        </header>
+        <!-- 工具栏 -->
+        {include file="public/bar_menu" /}
+        <!-- 这里是页面内容区 -->
+        <!-- content应该拥有"pull-to-refresh-content"类,表示启用下拉刷新 -->
+        <div class="content pull-to-refresh-content" data-ptr-distance="55">
+            <!-- 默认的下拉刷新层 -->
+            <div class="pull-to-refresh-layer">
+                <div class="preloader"></div>
+                <div class="pull-to-refresh-arrow"></div>
+            </div>
+            <div class="content-block">
+                {volist name="coachList" id="vo"}
+                <div class="card facebook-card">
+                    <div class="card-header card-bg">
+                        <input type="hidden" value="{$vo.id}">
+                        <div class="facebook-avatar">
+                            <img src="/static/images/coach.jpg" width="38" height="38">
+                        </div>
+                        <div class="facebook-name">{$vo.name}</div>
+                        <div class="facebook-date">添加时间:{$vo.add_time}</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-content-inner">
+                            <div class="list-block">
+                                <ul>
+                                    <li class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title">教练编号</div>
+                                            <div class="item-after">{$vo.id}</div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title">共上课时</div>
+                                            <div class="item-after">3570</div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title">身份</div>
+                                            <div class="item-after">
+                                                {if $vo.identity==1}管理员
+                                                {else /}教练
+                                                {/if}
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/volist}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Left Panel -->
+{include file="public/left_panel" /}
+{include file="public/foot" /}
+{js href="/static/js/coach.js" /}
+</body>
+
+</html>

@@ -1,0 +1,195 @@
+{include file="public/header" /}
+<body>
+<div class="page-group">
+    <div class="page">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+            <a class="icon icon-me pull-left open-panel"></a>
+            <h1 class="title">学员管理</h1>
+            <a class="external iconfont icon-zengjia pull-right" href="{:url('admin/student_govern/add')}"></a>
+        </header>
+        <div class="bar bar-header-secondary">
+            <div class="searchbar">
+                <a class="searchbar-cancel" onclick="window.location.reload()">取消</a>
+                <div class="search-input">
+                    <label class="icon icon-search" for="search1"></label>
+                    <input type="search" id='search1' placeholder='请输入姓名搜索'/>
+                </div>
+            </div>
+        </div>
+        <!-- 工具栏 -->
+        {include file="public/bar_menu" /}
+        <!-- 这里是页面内容区 -->
+        <!-- content应该拥有"pull-to-refresh-content"类,表示启用下拉刷新 -->
+        <div class="content  pull-to-refresh-content" data-ptr-distance="55">
+            <!-- 默认的下拉刷新层 -->
+            <div class="pull-to-refresh-layer">
+                <div class="preloader"></div>
+                <div class="pull-to-refresh-arrow"></div>
+            </div>
+            <div class="buttons-tab">
+                <a href="#tab1" class="tab-link active button">全部</a>
+                <a href="#tab2" class="tab-link button">已失效</a>
+            </div>
+            <div class="content-block">
+                <div class="tabs">
+                    <div id="tab1" class="tab active">
+                        <div class="list-block" id="tab1list">
+                        </div>
+                        <div class="infinite-scroll-preloader">
+                            <a onclick="pagenext()">加载更多</a>
+                        </div>
+                    </div>
+                    <div id="tab2" class="tab">
+                            <div class="list-block" id="tab2list">
+                            </div>
+                            <div class="infinite-scroll-preloader">
+                                <span>——————我是有底线的哦——————</span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Left Panel -->
+{include file="public/left_panel" /}
+{include file="public/foot" /}
+<script>
+    //刷新监听
+    $(document).on('refresh', '.pull-to-refresh-content',function(e) {
+        // 模拟2s的加载过程
+        window.location.reload();
+    });
+
+    //tab2数据
+    $.ajax({
+        url : '{:url('/admin/student_govern/findInvalid')}',
+        type : "post",
+        dataType : "text",
+        data : '',
+        success : function(data) {
+            var obj = JSON.parse(data);
+            // 添加新条目
+            $('#tab2list').append(obj.toString());
+        },
+        error : function(data) {
+            console.log(data);
+            $.alert('请求失败，服务器异常！');
+        }
+    });
+
+    //tab1数据
+    var page = 0;//上次加载的序号
+    var counts = {$counts};//数据总条数
+    addItems(0);//初始化tab1 预先加载20条
+    function addItems(lastIndex) {
+        $.ajax({
+            url : '{:url('/admin/student_govern/pageQuery')}',
+            type : "post",
+            dataType : "text",
+            data : 'lastIndex='+lastIndex,
+            success : function(data) {
+                var obj = JSON.parse(data);
+                // 添加新条目
+                $('#tab1list').append(obj.toString());
+                var lastconts = $('.facebook-card').length;
+                if(lastconts >= counts){
+                    $('.infinite-scroll-preloader').empty();
+                    $('.infinite-scroll-preloader').append('<span>——————我是有底线的哦——————<span>');
+                }
+            },
+            error : function(data) {
+                console.log(data);
+                $.alert('请求失败，服务器异常！');
+            }
+        });
+    }
+    function pagenext() {
+        page += 1;
+        addItems(page*20);
+    }
+
+    //搜索监听
+    $('#search1').bind('input propertychange', function() {
+        var name = $('#search1').val();
+        findByName(name);
+    });
+    //搜索函数
+    function findByName(name) {
+        if(name.trim()===''){
+            window.location.reload();
+        }else {
+            $.ajax({
+                url : '{:url('/admin/student_govern/findByName')}',
+                type : "get",
+                dataType : "text",
+                data : 'name='+name,
+                success : function(data) {
+                    if(data===""){
+                        $('.infinite-scroll-preloader').append('<span>系统无此学员<span>');
+                    }else {
+                        var obj = JSON.parse(data);
+                        // 添加新条目
+                        $('#tab1list').empty();
+                        $('#tab1list').append(obj.toString());
+                        $('.infinite-scroll-preloader').empty();
+                    }
+                },
+                error : function(data) {
+                    console.log(data);
+                    $.alert('请求失败，服务器异常！');
+                }
+            });
+        }
+    }
+
+    //卡片点击事件监听
+    $(document).on('click', '.card-header', function(event) {
+        var id = event.currentTarget.firstElementChild.value;
+        var buttons1 = [{
+            text: '请选择',
+            label: true
+        },
+            {
+                text: '修改',
+                bold: true,
+                onClick: function() {
+                    var url = '{:url('/admin/student_govern/edit')}'+'?id='+id;
+                    window.location.href = url;
+                }
+            },
+            {
+                text: '删除',
+                color: 'danger',
+                onClick: function() {
+                    $.confirm('确定删除学员'+id+'吗?', function () {
+                        $.showPreloader();
+                        $.ajax({
+                            url : "{:url('/admin/student_govern/del')}",
+                            type : "post",
+                            dataType : "json",
+                            data : 'id='+id,
+                            success : function(dataObj) {
+                                $.hidePreloader();
+                                $.alert(dataObj.message);
+                                window.location.reload();
+                            },
+                            error : function() {
+                                $.hidePreloader();
+                                $.alert('请求失败，服务器异常！');
+                            }
+                        });
+                    });
+                }
+            }
+        ];
+        var buttons2 = [{
+            text: '取消',
+            bg: 'danger'
+        }];
+        $.actions([buttons1, buttons2]);
+    });
+</script>
+</body>
+</html>

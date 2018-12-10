@@ -1,0 +1,138 @@
+{include file="public/header" /}
+<body>
+<div class="page-group">
+    <div class="page">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+            <a class="icon icon-me pull-left open-panel"></a>
+            <h1 class="title">统计报表</h1>
+            <button class="button pull-right" onclick="editCount()">
+                修改
+            </button>
+        </header>
+        <!-- 工具栏 -->
+        {include file="public/bar_menu" /}
+        <!-- 这里是页面内容区 -->
+        <div class="content pull-to-refresh-content" data-ptr-distance="55">
+            <!-- 默认的下拉刷新层 -->
+            <div class="pull-to-refresh-layer">
+                <div class="preloader"></div>
+                <div class="pull-to-refresh-arrow"></div>
+            </div>
+            <div class="content-block-title">分月统计</div>
+            <div class="list-block" id="box">
+                <ul>
+                    {foreach $mothList as $key=>$vo }
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">{$key}</div>
+                            <div class="item-after">
+                                <input type="text" style="text-align: right;padding: 0 0 .7rem 0" value="{$vo}"></div>
+                        </div>
+                    </li>
+                    {/foreach}
+                </ul>
+            </div>
+            <div class="content-block-title">分类统计</div>
+            <div class="list-block">
+                <ul>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">学费总收入</div>
+                            <div class="item-after">{$sum_money}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">学生总数</div>
+                            <div class="item-after">{$sum_student}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">共计课时数</div>
+                            <div class="item-after">{$sum_max_count}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">共上课时数</div>
+                            <div class="item-after">{$sum_sed}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">共计定金数</div>
+                            <div class="item-after">{$sum_dingjin}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">共计次卡数</div>
+                            <div class="item-after">{$sum_cika}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">共计月卡数</div>
+                            <div class="item-after">{$sum_yueka}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">共计年卡数</div>
+                            <div class="item-after">{$sum_yearka}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">共计暑假数</div>
+                            <div class="item-after">{$sum_shujia}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">共计寒假数</div>
+                            <div class="item-after">{$sum_hanjia}</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Left Panel -->
+{include file="public/left_panel" /}
+{include file="public/foot" /}
+<script>
+    function editCount() {
+        var $inputArr = $('input');//length = 3
+        //3.循环处理input,并定义结果集
+        var numArr = [];
+        $inputArr.each(function(){
+            //4.将每个input的值放进结果集
+            numArr.push($(this).val());
+        });
+        $.showPreloader();
+        $.ajax({
+            url: '/admin/Statistics/edit',
+            type: "post",
+            dataType: "json",
+            data: 'data=' + JSON.stringify(numArr),
+            success: function (dataObj) {
+                $.hidePreloader();
+                if (200 == dataObj.code) {
+                    $.alert('修改成功！');
+                } else {
+                    $.alert(dataObj.message);
+                }
+            },
+            error: function (dataObj) {
+                $.hidePreloader();
+                $.alert('请求失败，服务器异常！');
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{volist name="signList" id="vo"}
+<li>
+    <a class="item-link item-content" onclick="delSign({$vo.sign_id})">
+        <div class="item-inner">
+            <div class="item-title-row">
+                <div class="item-title">{$vo.name_}</div>
+                <div class="item-after">{$vo.qd_time}</div>
+            </div>
+            <div class="item-subtitle">{$vo.name}</div>
+            <div class="item-text">
+                {if $vo.status==1}{$vo.message}
+                {else /}<span style="color:#ff4500">{$vo.message}</span>
+                {/if}
+            </div>
+        </div>
+    </a>
+</li>
+{/volist}

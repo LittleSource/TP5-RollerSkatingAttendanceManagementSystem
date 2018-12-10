@@ -1,0 +1,93 @@
+{include file="public/header" /}
+<body>
+
+<div class="page-group">
+	<div class="page">
+		<!-- 标题栏 -->
+		<header class="bar bar-nav">
+			<a class="button button-link button-nav pull-left external" href="{:url('/index/login/login')}">
+				<span class="icon icon-left"></span>
+				登录
+			</a>
+			<h1 class="title">{:config('system_title')}</h1>
+			<a class="button button-link button-nav pull-right open-panel">
+				联系我们
+			</a>
+		</header>
+		<!-- 右侧栏联系我们 -->
+		<div class="panel panel-right panel-cover theme-dark">
+			<div class="content-block">
+				<p>咨询热线：</p>
+				<span class="icon icon-phone"> 18235451225</span>
+				<hr>
+				<p>在线客服：</p>
+				<span class="icon icon-message"> 微信：18235451225</span>
+				<hr>
+				<p>官方微信：</p>
+				<img src="/static/images/wechat_code.png" width="130">
+				<hr>
+				<p> 公司官网：</p>
+				<span > www.piaoyilunhua.com</span>
+				<p><a href="#" class="close-panel">关闭</a></p>
+			</div>
+		</div>
+		<!-- 内容区 start -->
+		<div class="content index_bg">
+			<div class="list-block">
+				<div class="card">
+					<div class="card-header">最新动态 ——轮滑大事件</div>
+					<div class="card-content">
+						<div class="list-block media-list">
+							<ul>
+								<li class="item-content item-link" onclick="$.router.load('{:url('/index/index/article')}');">
+									<div class="item-media">
+										<img src="/static/images/weo.jpg" width="44">
+									</div>
+									<div class="item-inner">
+										<div class="item-title-row">
+											<div class="item-title">WEO轮滑考级介绍</div>
+										</div>
+										<div class="item-subtitle">世界自由式轮滑协会（WEO）考级制度...</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="card-footer">
+						<span>2018/02/27</span>
+						<span>作者：管理员</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<nav class="bar bar-tab">
+			<div class="tab-item external active">
+				<span style="color: #333">
+					技术支持 ©
+					<a class="external" href="http://www.ym998.cn" target="_blank"> 源梦科技</a>
+				</span>
+			</div>
+		</nav>
+	</div>
+</div>
+{include file="public/foot" /}
+<script>
+    /*=== 打开图片浏览器 ===*/
+    $(function() {
+        var myPhotoBrowserStandalone = $.photoBrowser({
+            photos: [
+                '/static/images/article11.jpg',
+                '/static/images/article12.jpg',
+            ]
+        });
+        //点击时打开图片浏览器
+        $(document).on('click', '.pb-standalone', function () {
+            myPhotoBrowserStandalone.open();
+        });
+    });
+	$.init();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+{/*
+此模板用于生成student卡片
+引用到此模板的控制器方法
+pageQuery|findInvalid|findByName
+*/}
+{volist name="studentList" id="vo"}
+<div class="card facebook-card">
+    <div class="card-header card-bg">
+        <input type="hidden" value="{$vo.id}">
+        <div class="facebook-avatar">
+            <img src="/static/images/student.jpg" width="38" height="38">
+        </div>
+        <div class="facebook-name">{$vo.name_}</div>
+        <div class="facebook-date">到期时间:{$vo.end_time}</div>
+    </div>
+    <div class="card-content">
+        <div class="card-content-inner">
+            <div class="list-block cards-list">
+                <ul>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">ID</div>
+                            <div class="item-after">{$vo.id}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">性别</div>
+                            <div class="item-after">{$vo.sex}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">场地</div>
+                            <div class="item-after">{$vo.scope}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">出生年月</div>
+                            <div class="item-after">{$vo.birth_date}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">电话</div>
+                            <div class="item-after">{$vo.phone}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">报名日期</div>
+                            <div class="item-after">{$vo.start_time}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">最大签到次数</div>
+                            <div class="item-after">{$vo.max_count}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">剩余次数</div>
+                            <div class="item-after">{$vo.residual_count}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">报名类型</div>
+                            <div class="item-after">{$vo.type}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">备注</div>
+                            <div class="item-after">{$vo.integral}</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{/volist}

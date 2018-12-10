@@ -1,0 +1,92 @@
+{if $Think.session.identity == 1}{include file="./admin/view/public/header" /}
+{else /}{include file="./teacher/view/public/header" /}
+{/if}
+<body>
+<div class="page-group">
+    <div class="page">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+            <a class="icon icon-me pull-left open-panel"></a>
+            <h1 class="title">签到管理</h1>
+            <a class="button pull-right" href="{:url('/teacher/sign/studentlist')}">批量签到</a>
+        </header>
+        <!-- 工具栏 -->
+        {if $Think.session.identity == 1}{include file="./admin/view/public/bar_menu" /}
+        {else /}{include file="./teacher/view/public/bar_menu" /}
+        {/if}
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+            <div class="list-block media-list" style="margin-top: -10px">
+                <ul id="list">
+                </ul>
+                <div class="infinite-scroll-preloader" style="margin-top: 1rem">
+                    <a onclick="pagenext()">加载更多</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Left Panel -->
+{if $Think.session.identity == 1}{include file="./admin/view/public/left_panel" /}
+{else /}{include file="./teacher/view/public/left_panel" /}
+{/if}
+
+<!-- Js -->
+{if $Think.session.identity == 1}{include file="./admin/view/public/foot" /}
+{else /}{include file="./teacher/view/public/foot" /}
+{/if}
+<script>
+    var page = 0;//上次加载的序号
+    var counts = {$counts};//数据总条数
+    addItems(0);//初始化tab1 预先加载20条
+    function addItems(lastIndex) {
+        $.ajax({
+            url : '/teacher/sign/pageQuery',
+            type : "post",
+            dataType : "text",
+            data : 'lastIndex='+lastIndex,
+            success : function(data) {
+                var obj = JSON.parse(data);
+                // 添加新条目
+                $('#list').append(obj.toString());
+                var lastconts = $('.item-link').length;
+                if(lastconts >= counts){
+                    $('.infinite-scroll-preloader').empty();
+                    $('.infinite-scroll-preloader').append('<span>——————我是有底线的哦——————<span>');
+                }
+            },
+            error : function(data) {
+                console.log(data);
+                $.alert('请求失败，服务器异常！');
+            }
+        });
+    }
+    function pagenext() {
+        page += 1;
+        addItems(page*20);
+    }
+
+    function delSign(sign_id) {
+        $.confirm('确定要删除这条签到记录吗?', function () {
+            $.showIndicator();
+            $.ajax({
+                url: '/teacher/sign/delSign',
+                type: "post",
+                dataType: "json",
+                data: 'sign_id=' + sign_id,
+                success: function (dataObj) {
+                    $.hideIndicator();
+                    $.toast(dataObj.message);
+                    window.location.reload();
+                },
+                error: function (dataObj) {
+                    console.log(dataObj.responseText);
+                    $.hideIndicator();
+                    $.alert('请求失败，服务器异常！');
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

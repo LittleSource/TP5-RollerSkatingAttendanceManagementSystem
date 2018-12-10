@@ -1,0 +1,39 @@
+<div class="panel panel-left panel-reveal theme-dark" id="panel-left-demo">
+    <div class="content-block">
+        <p align="center">
+            <img src="/static/images/coach.jpg" style="border-radius:2rem;width:4rem;height:4rem
+">
+        </p>
+        <p align="center">{:\\think\\facade\\Session::get('name','login');}，欢迎登陆</p>
+    </div>
+    <div class="list-block">
+        <ul>
+            <!-- Text inputs -->
+            <li>
+                <div class="item-content">
+                    <div class="item-media"><i class="icon icon-form-gender"></i></div>
+                    <div class="item-inner">
+                        <a class="external" href="{:url('/teacher/remedy/index')}">签到管理</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="item-content">
+                    <div class="item-media"><i class="icon icon-form-gender"></i></div>
+                    <div class="item-inner">
+                        <a class="close-panel">关闭侧栏</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="item-content">
+                    <div class="item-media"><i class="icon icon-form-gender"></i></div>
+                    <div class="item-inner">
+                        <a class="external" href="{:url('/index/login/loginOut')}">退出登录</a>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,197 @@
+{include file="public/header" /}
+<body>
+<div class="page-group">
+    <div class="page">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+            <a class="button button-link button-nav pull-left back" data-no-cache="true">
+                <span class="icon icon-left"></span>
+                返回
+            </a>
+            <h1 class="title">学员添加</h1>
+            <a class="icon icon-check pull-right" onclick="addOrEditStudent('add')"></a>
+        </header>
+        <!-- 工具栏 -->
+        {include file="public/bar_menu" /}
+        <!-- 这里是页面内容区 -->
+        <div class="content pull-to-refresh-content" data-ptr-distance="55">
+            <!-- 默认的下拉刷新层 -->
+            <div class="pull-to-refresh-layer">
+                <div class="preloader"></div>
+                <div class="pull-to-refresh-arrow"></div>
+            </div>
+            <div class="list-block">
+                <ul>
+                        <!-- Text inputs -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">学员姓名</div>
+                                    <div class="item-input">
+                                        <input type="text" id="name_">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">性别</div>
+                                    <div class="item-input">
+                                        <input type="text" id="sex" value="男">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">登陆密码</div>
+                                    <div class="item-input">
+                                        <input type="text" id="password" value="111111">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">年龄</div>
+                                    <div class="item-input">
+                                        <input type="number" id="age" value="10">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">出生年月</div>
+                                    <div class="item-input">
+                                        <input type="text" id="birth_date">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">身高</div>
+                                    <div class="item-input">
+                                        <input type="text" id="height" value="0" style="width:150px;height:40px" size="5" maxlength="3">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">体重</div>
+                                    <div class="item-input">
+                                        <input type="text" id="weight" value="0" style="width:150px;height:40px" size="5" maxlength="3">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">电话</div>
+                                    <div class="item-input">
+                                        <input type="text" id="phone" style="width:150px;height:40px" size="10" maxlength="11">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">所交费用</div>
+                                    <div class="item-input">
+                                        <input type="text" id="money"  style="width:150px;height:40px" size="10" maxlength="6">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">报名日期</div>
+                                    <div class="item-input">
+                                        <input type="text" id="start_time">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">到期日期</div>
+                                    <div class="item-input">
+                                        <input type="text" id="end_time">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">最大签到次数</div>
+                                    <div class="item-input">
+                                        <input type="text" id="max_count">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">报名类型</div>
+                                    <div class="item-input">
+                                        <input type="text" id="type">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">场地</div>
+                                <div class="item-input">
+                                    <input type="text" id="scope">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">备注</div>
+                                <div class="item-input">
+                                    <input type="text" id="integral" value=" ">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    </ul>
+                </div>
+        </div>
+    </div>
+</div>
+<!-- Left Panel -->
+{include file="public/left_panel" /}
+{include file="public/foot" /}
+<script>
+    $("#birth_date").calendar({
+        value: ["2010-01-01"]
+    });
+    $("#start_time").calendar({
+        value: ["{php}echo date('Y-m-d');{/php}"]
+    });
+    $("#end_time").calendar({
+        value: ["{php}echo date('Y-m-d',strtotime('+1 year'));{/php}"]
+    });
+</script>
+{js href="/static/js/student_add_edit.js" /}
+</body>
+</html>

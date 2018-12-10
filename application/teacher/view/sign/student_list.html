@@ -1,0 +1,80 @@
+{if $Think.session.identity == 1}{include file="./admin/view/public/header" /}
+{else /}{include file="./teacher/view/public/header" /}
+{/if}
+<body>
+<div class="page-group">
+    <div class="page">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+            <a class="icon icon-me pull-left open-panel"></a>
+            <h1 class="title">批量签到</h1>
+            <a class="button button-link button-nav pull-right" onclick="getId()">
+                提交
+                <span class="icon icon-right"></span>
+            </a>
+        </header>
+        <!-- 工具栏 -->
+        {if $Think.session.identity == 1}{include file="./admin/view/public/bar_menu" /}
+        {else /}{include file="./teacher/view/public/bar_menu" /}
+        {/if}
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+            <div class="list-block media-list">
+                <ul>
+                    {volist name="studentList" id="vo"}
+                    <li>
+                        <label class="label-checkbox item-content">
+                            <input type="checkbox" name="id" value="{$vo.id}">
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">{$vo.name_}</div>
+                                    <div class="item-after">{$vo.id}</div>
+                                </div>
+                                <div class="item-subtitle">余次{$vo.residual_count}</div>
+                                <div class="item-text">余天{:round((strtotime($vo.end_time)-$nowTime)/3600/24)}</div>
+                            </div>
+                        </label>
+                    </li>
+                    {/volist}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Left Panel -->
+{if $Think.session.identity == 1}{include file="./admin/view/public/left_panel" /}
+{else /}{include file="./teacher/view/public/left_panel" /}
+{/if}
+
+<!-- Js -->
+{if $Think.session.identity == 1}{include file="./admin/view/public/foot" /}
+{else /}{include file="./teacher/view/public/foot" /}
+{/if}
+<script>
+    function getId() {
+        $.showPreloader();
+        var id = $("input:checked");
+        var parArr = new Array();
+        for(var i = 0; i < id.length; i++){
+            parArr.push(id[i].value);
+        }
+        $.ajax({
+            url: '/teacher/sign/startSign',
+            type: "post",
+            dataType: "json",
+            data: 'data=' + JSON.stringify(parArr),
+            success: function (count) {
+                $.hidePreloader();
+                $.alert('选择了'+parArr.length+'个\n签到成功'+count+'个！');
+            },
+            error: function (dataObj) {
+                console.log(dataObj);
+                $.hidePreloader();
+                $.alert('请求失败，服务器异常！');
+            }
+        });
+    }
+</script>
+</body>
+</html>

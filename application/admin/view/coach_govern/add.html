@@ -1,0 +1,69 @@
+{include file="public/header" /}
+<body>
+<div class="page-group">
+    <div class="page">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+            <a class="button button-link button-nav pull-left back">
+                <span class="icon icon-left"></span>
+                返回
+            </a>
+            <h1 class="title">教练添加</h1>
+            <a class="icon icon-check pull-right" onclick="addCoach()"></a>
+        </header>
+        <!-- 工具栏 -->
+        {include file="public/bar_menu" /}
+        <!-- 这里是页面内容区 -->
+        <div class="content pull-to-refresh-content" data-ptr-distance="55">
+            <!-- 默认的下拉刷新层 -->
+            <div class="pull-to-refresh-layer">
+                <div class="preloader"></div>
+                <div class="pull-to-refresh-arrow"></div>
+            </div>
+            <div class="content-block">
+                <div class="list-block">
+                    <ul>
+                        <!-- Text inputs -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">姓名</div>
+                                    <div class="item-input">
+                                        <input type="text" id="name" placeholder="输入教练姓名">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">密码</div>
+                                    <div class="item-input">
+                                        <input type="text" id="password" placeholder="输入教练密码">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">身份</div>
+                                    <div class="item-input">
+                                        <input type="radio" name="identity" value="0" checked> 教练
+                                        <input type="radio" name="identity" value="1"> 管理员
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Left Panel -->
+{include file="public/left_panel" /}
+{include file="public/foot" /}
+</body>
+
+</html>
