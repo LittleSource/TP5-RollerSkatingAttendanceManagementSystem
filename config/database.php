@@ -15,11 +15,11 @@ return [
     // 服务器地址
     'hostname'        => 'localhost',
     // 数据库名
-    'database'        => 'lunhua_ym998_cn',
+    'database'        => '',
     // 用户名
-    'username'        => 'lunhua_ym998_cn',
+    'username'        => '',
     // 密码
-    'password'        => '2WXGFWepSMYAtWbZ',
+    'password'        => '',
     // 端口
     'hostport'        => '3306',
     // 连接dsn
