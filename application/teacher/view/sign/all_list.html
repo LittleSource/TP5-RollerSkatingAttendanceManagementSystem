@@ -16,7 +16,7 @@
         {/if}
         <!-- 这里是页面内容区 -->
         <div class="content">
-            <div class="list-block media-list" style="margin-top: -10px">
+            <div class="list-block media-list" style="margin-top:5px;">
                 <ul id="list">
                 </ul>
                 <div class="infinite-scroll-preloader" style="margin-top: 1rem">
@@ -36,18 +36,20 @@
 {else /}{include file="./teacher/view/public/foot" /}
 {/if}
 <script>
-    var page = 0;//上次加载的序号
+    var page = 1;//上次加载的序号
     var counts = {$counts};//数据总条数
-    addItems(0);//初始化tab1 预先加载20条
-    function addItems(lastIndex) {
+    addItems(1);//初始化tab1 预先加载20条
+    function addItems(pages) {
         $.ajax({
             url : '/teacher/sign/pageQuery',
-            type : "post",
+            type : "GET",
             dataType : "text",
-            data : 'lastIndex='+lastIndex,
+            data : {page:pages},
             success : function(data) {
+              console.log(data);
                 var obj = JSON.parse(data);
                 // 添加新条目
+              
                 $('#list').append(obj.toString());
                 var lastconts = $('.item-link').length;
                 if(lastconts >= counts){
@@ -62,8 +64,8 @@
         });
     }
     function pagenext() {
-        page += 1;
-        addItems(page*20);
+        page = page + 1;
+        addItems(page);
     }
 
     function delSign(sign_id) {

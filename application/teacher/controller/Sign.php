@@ -48,20 +48,19 @@ class Sign extends Before
      * @throws \think\exception\DbException
      */
     public function pageQuery(){
-        if($this->request->has('lastIndex')){
+        if($this->request->has('page')){
             //上次加载的序号
-            $lastIndex = input('lastIndex/d');
+            $page = input('page/d');
             //条数
-            $count = input('?limt') ? input('limt/d') : 100;
+            //$count = input('?limt') ? input('limt/d') : 100;
             $list = Db::field('ymlh_sign.sign_id,ymlh_sign.id,ymlh_sign.qd_time,ymlh_sign.name,ymlh_sign.message,ymlh_sign.status,ymlh_student.name_')
                 ->table(['ymlh_sign','ymlh_student'])
                 ->where('ymlh_sign.id = ymlh_student.id')
-                ->order('qd_time','DESC')
-                ->limit($lastIndex,$count)
-                ->select();
+                ->order('ymlh_sign.sign_id','DESC')
+                ->page($page,20)
+              	->select();
             $this->assign('signList',$list);
             return $this->fetch('/teacher/view/sign/page_query');
-            //return var_dump($list);
         }
     }
 
